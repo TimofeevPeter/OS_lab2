@@ -15,7 +15,7 @@ public class Main {
         if (mode == 1) {
             runReg(scanner);
         } else if (mode == 2) {
-
+            runTriaug(scanner);
         } else {
             System.out.println("Неверный режим.");
         }
@@ -162,7 +162,7 @@ public class Main {
                 }
             }
 
-            int[][] matrixB = new int[][];
+            int[][] matrixB = new int[n][k];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < k; j++) {
                     matrixB[i][j] = random.nextInt(10);
@@ -187,9 +187,9 @@ public class Main {
                     int rows = rowsPerThread + (t < remainder ? 1 : 0);
                     int endRow = startRow + rows;
 
-                    threads[t] = new Thread(new Worker(
+                    threads[t] = new Thread(new TriangularWorker(
                             matrixA, matrixB, matrixC,
-                            startRow, endRow, k, n, completedRows
+                            k, n, startRow, endRow, completedRows
                     ));
                     threads[t].start();
                     startRow = endRow;
