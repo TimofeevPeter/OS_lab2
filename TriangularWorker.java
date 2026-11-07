@@ -30,7 +30,7 @@ public class TriangularWorker implements Runnable {
     }
 
     public TriangularWorker(int[][] matrixA, int[][] matrixB, int[][] matrixC,
-                            int n, int k, int startRow, int endRow,
+                            int n, int k, AtomicInteger nextRows,
                             AtomicInteger completedRows) {
         this.matrixA = matrixA;
         this.matrixB = matrixB;
@@ -62,11 +62,11 @@ public class TriangularWorker implements Runnable {
     }
 
 
-    private void completedRows(int i) {
+    private void computeRow(int i) {
         for (int j = 0; j < k; j++) {
             int sum = 0;
-            for (int t = 0; t < i; t++) {
-                sum += matrixA[i][t] + matrixB[t][j];
+            for (int t = 0; t <= i; t++) {
+                sum += matrixA[i][t] * matrixB[t][j];
             }
             matrixC[i][j] = sum;
         }
