@@ -40,6 +40,8 @@ public class TriangularWorker implements Runnable {
         this.startRow = 0;
         this.endRow = 0;
         this.completedRows = completedRows;
+        this.isDynamic = true;
+        this.nextRows = nextRows;
 
     }
 
@@ -52,11 +54,11 @@ public class TriangularWorker implements Runnable {
                 if (row >= n) {
                     break;
                 }
-                completedRows(row);
+                computeRow(row);
             }
         } else {
             for (int i = startRow; i < endRow; i++) {
-                completedRows(i);
+                computeRow(i);
             }
         }
     }
